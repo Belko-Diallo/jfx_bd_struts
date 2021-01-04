@@ -1,0 +1,125 @@
+= PEL
+
+Nous voulons mettre en place un site web de paris en ligne sur les résultats de matchs sportifs. Le fonctionnement général du site web est le suivant :
+
+Un administrateur du site ajoute un match, avec le sport (foot, rugby, …), les noms des deux équipes qui doivent se rencontrer, la date et l’heure du match. Les joueurs peuvent alors parier sur le résultat final du match, en prédisant le vainqueur (ou match nul) et en misant une somme d’argent en euros. Les joueurs peuvent continuer à parier jusqu’à la dernière seconde avant le début du match, ensuite les paris sont clos sur ce match. Ils peuvent aussi annuler leurs propres paris (ou un admin peut le faire) jusqu’au début du match.
+
+Exemple : Le 16 juin 2018, à 12h00, match de foot France-Australie, pari de « Fred » sur un résultat match nul, 8€.
+
+Une fois le match terminé, un administrateur saisit le résultat (équipe vainqueur ou nul) de ce match ; les gains sont alors répartis automatiquement entre les parieurs qui ont gagné (l’ensemble des mises sur le match moins 10% récupérés par le site sont répartis entre les gagnants en proportion de leurs mises).
+
+Les utilisateurs, qui s’identifient en tapant leur login et mot de passe (on ne s’intéresse pas ici à la création des utilisateurs/administrateurs), peuvent voir la liste des matchs encore ouverts aux paris.
+
+Nous nous intéressons ici à l'utilisateur classique qui peut parier sur un match ouverts et gérer ses
+paris. On ne demande pas de faire la partie administration pour le moment.
+
+
+
+
+
+== Graphe de Navigation
+
+Nous ne prenons pas encore en compte les données définies dans la façade.
+
+. Mettre en place le graphe de navigation de l'application.
+Chaque noeud dans le graphe sera une page JSP et chaque arc sera
+étiqueté par un nom d'action.
+
+Vous pouvez mettre à jour le graphe ci-dessous (qui sert d'exemple) :
+
+[graphviz]
+---------------------------------------------------------------------
+digraph automata_0 {
+    node [shape = circle];
+    init [label="", shape=point];
+    connexion [label="connexion.jsp"];
+    menu [label="menu.jsp"];
+    init -> connexion
+    connexion -> menu [label="connexion"];
+    menu -> connexion [label="deconnexion"];
+}
+---------------------------------------------------------------------
+
+Si vous avez des problèmes de visualisation, vous pouvez copier/coller le digraph
+vers l'application en ligne : https://dreampuf.github.io/GraphvizOnline/
+
+
+[start=2]
+. Développez les JSPs statiques et le contrôleur (servlet) permettant de gérer cette navigation.
+
+
+
+:imagesdir: images
+
+
+.Page d'accueil
+image::accueil.png[Page d'accueil]
+
+
+.Menu principal
+image::menu.png[Menu principal]
+
+.Matchs ouverts aux paris
+image::matchouverts.png[Matchs ouverts aux paris]
+
+.Pari confirmé
+image::validationpari.png[Pari confirmé]
+
+.Gestion des paris
+image::mesparis.png[Mes paris]
+
+.Confirmation annulation d'un pari
+image::annulationconfirmee.png[Confirmation d'annulation d'un pari]
+
+
+
+
+
+== Injection des données -- JSTL & Beans
+
+A partir de maintenant, nous allons relier notre modèle/façade à notre application web.
+Nous allons pour l'instant traiter uniquement les scénarios sans traitement d'erreur.
+
+Le contrôleur doit préparer les données à afficher dans les différentes JSPs et il doit aussi
+effectuer des traitements en interaction avec la façade. Par exemple, pour se connecter,
+un individu devra fournir
+un identifiant et un mot de passe. Le contrôleur vérifiera à l'aide de la façade si
+le couple des données est connu ou non.
+
+. Identifiez les données nécessaires à chacune des JSPs et effectuez les modifications nécessaire
+dans le contrôleur.
+
+. Mettez à jour les JSPs afin qu'elles puissent traiter les données et faire les bons appels au contrôleur
+(par exemple : on veut être capable de sélectionner un match sur lequel parier. En cliquant sur ce match,
+le contrôleur devra être capable d'extraire l'identifiant du match concerné afin de récupérer le match en question
+via la façade et ainsi le préparer pour la prochaine JSP).
+
+
+
+
+== Gestion des erreurs
+
+
+Vous devez gérer proprement les différentes erreurs que l'on peut rencontrer :
+
+. Erreur à la connexion
+
+.Erreur avec au moins un identifiant manquant
+image:identifiantsmanquants.png[Identifiants manquants]
+
+
+.Erreur avec des identifiants inconnus par le SI
+
+.Identifiants inconnus
+image:identifiantsKO.png[Identifiants inconnus]
+
+. Erreur à l'annulation (le match est déjà fini et le pari ne peut pas être annulé)
+
+.Annulation impossible
+image:annulationimpossible.png[Annulation impossible]
+
+
+. Erreur à la saisie du pari avec un montant négatif.
+
+.Montant négatif lors du pari
+image:misenegative.png[Mise négative]

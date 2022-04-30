@@ -1,0 +1,15 @@
+package controleur.ordre;
+
+public enum Ordre {
+    SHOW_MENU,
+    SHOW_CONNEXION,
+    SHOW_MENU_USER,
+    SHOW_PARIS_OUVERTS,
+    SHOW_MES_PARIS,
+    SHOW_HORLOGE,
+
+    DECONNEXION,
+
+    UTILISATEUR_DEJA_CONNECTE,
+    INFORMATIONS_SAISIES_INCOHERENTES
+}

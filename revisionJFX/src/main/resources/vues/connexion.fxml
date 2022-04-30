@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="borderPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="vues.Connexion">
+    <top>
+        <Label alignment="CENTER" contentDisplay="CENTER" text="Connexion" textAlignment="CENTER"
+               BorderPane.alignment="CENTER">
+            <font>
+                <Font size="24.0"/>
+            </font>
+        </Label>
+    </top>
+    <center>
+        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+            <children>
+                <Label alignment="CENTER" contentDisplay="CENTER" text="Identifiant" textAlignment="CENTER">
+                    <font>
+                        <Font size="18.0"/>
+                    </font>
+                </Label>
+                <TextField fx:id="id"/>
+                <Label text="Mot de passe" textAlignment="CENTER">
+                    <font>
+                        <Font size="18.0"/>
+                    </font>
+                </Label>
+                <PasswordField fx:id="mdp"/>
+                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="50.0">
+                    <children>
+                        <Button cancelButton="true" mnemonicParsing="false" onAction="#reset" text="Réinitialiser"/>
+                        <Button mnemonicParsing="false" onAction="#goToPagePerso" text="Se connecter"/>
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </center>
+    <bottom>
+        <Button mnemonicParsing="false" onAction="#goToMenu" text="Page d'accueil"/>
+    </bottom>
+</BorderPane>
